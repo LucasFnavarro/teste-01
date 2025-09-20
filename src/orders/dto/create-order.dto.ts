@@ -21,7 +21,7 @@ export class ProductDto {
   comprimento: number;
 }
 
-export class OrderDto {
+export class OrderDTO {
   @ApiProperty({ required: false, example: 'pedido-1' })
   @IsOptional()
   @IsString()
@@ -35,9 +35,9 @@ export class OrderDto {
 }
 
 export class OrdersRequestDto {
-  @ApiProperty({ type: [OrderDto] })
+  @ApiProperty({ type: [OrderDTO] })
   @IsArray()
   @ValidateNested({ each: true })
-  @Type(() => OrderDto)
-  pedidos: OrderDto[];
+  @Type(() => OrderDTO)
+  pedidos: OrderDTO[];
 }

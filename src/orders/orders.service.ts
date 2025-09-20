@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { OrderDto, OrdersRequestDto } from './dto/create-order.dto';
+import { OrderDTO, OrdersRequestDto } from './dto/create-order.dto';
 import { packOrder } from './packing-algorithm';
 
 @Injectable()
 export class OrderService {
   packOrders(body: OrdersRequestDto) {
-    const results = body.pedidos.map((pedido: OrderDto, idx) => {
+    const results = body.pedidos.map((pedido: OrderDTO, idx) => {
       const pedidoId = pedido.id ?? `pedido-${idx + 1}`;
 
       const produtos = pedido.produtos.map((p, i) => ({
