@@ -1,8 +1,4 @@
-// Algoritmo simples de empacotamento de produtos em caixas
-// Utilizei um algoritmo guloso (greedy) para tentar minimizar o número de caixas usadas
-// Considera apenas o volume total dos produtos e das caixas, e se o produto cabe na caixa
-// considerando todas as rotações possíveis do produto dentro da caixa
-// Não considera o peso dos produtos, apenas as dimensões
+import { HttpException, HttpStatus } from '@nestjs/common';
 
 // Tipos
 export type Product = {
@@ -29,21 +25,21 @@ export type PackedBox = {
 // Definição das caixas disponíveis
 const BOXES: Box[] = [
   {
-    id: 'caixa 1',
+    id: 'Caixa 1',
     name: 'Caixa Pequena',
     altura: 30,
     largura: 40,
     comprimento: 80,
   }, // 30x40x80
   {
-    id: 'caixa 2',
+    id: 'Caixa 2',
     name: 'Caixa Média',
     altura: 50,
     largura: 50,
     comprimento: 40,
   }, // 50x50x40
   {
-    id: 'caixa 3',
+    id: 'Caixa 3',
     name: 'Caixa Grande',
     altura: 50,
     largura: 80,
@@ -82,15 +78,18 @@ export function packOrder(products: Product[]): PackedBox[] {
   if (!products || products.length === 0) return [];
 
   // Verificação para ver se todos os produtos cabem em pelo menos uma caixa
-  for (const p of products) {
-    const can = BOXES.some((box) => fitsInBox(p, box));
+  for (const product of products) {
+    const can = BOXES.some((box) => fitsInBox(product, box));
 
     if (!can) {
-      throw new Error(`
+      throw new HttpException(
+        `
                 Produto ${
-                  p.id ?? '[sem-id]'
+                  product.id ?? '[sem-id]'
                 } não cabe em nenhuma das caixas disponíveis.
-            `);
+            `,
+        HttpStatus.UNPROCESSABLE_ENTITY,
+      );
     }
   }
 
@@ -143,7 +142,7 @@ export function packOrder(products: Product[]): PackedBox[] {
     }
   }
 
-  // mapear para saída simples
+  // Formatar a saída
   const output: PackedBox[] = used.map((u) => ({
     caixa: u.type.name,
     caixaId: u.type.id,
