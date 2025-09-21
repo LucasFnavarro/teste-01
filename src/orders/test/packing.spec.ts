@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { packOrder } from '../packing-algorithm';
+import { validateProductsFit } from '../packing-algorithm';
 
 describe('Módulo de embalagem', () => {
   it('Deve embalar os itens corretamente', async () => {
@@ -9,7 +9,7 @@ describe('Módulo de embalagem', () => {
       { id: 'p3', altura: 10, largura: 10, comprimento: 10 },
     ];
 
-    const resultado = packOrder(produtos);
+    const resultado = validateProductsFit(produtos);
 
     expect(resultado.length).toBeGreaterThan(0);
 
