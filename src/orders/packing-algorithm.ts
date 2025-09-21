@@ -124,7 +124,7 @@ export function packOrder(products: Product[]): PackedBox[] {
         .sort((a, b) => volume(a) - volume(b))[0];
 
       if (!suitable) {
-        // teoria: se não achou por volume, encontre maior caixa disponível que encaixe dimensionalmente
+        // Se não achou por volume, encontre maior caixa disponível que encaixe dimensionalmente com o produto
         const fallback = BOXES.find((b) => fitsInBox(prod, b));
         if (!fallback) throw new Error('Não há caixa que comporte o produto.');
         used.push({
