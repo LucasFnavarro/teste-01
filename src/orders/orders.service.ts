@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { OrderDTO, OrdersRequestDto } from './dto/create-order.dto';
-import { packOrder } from './packing-algorithm';
+import { validateProductsFit } from './packing-algorithm';
 
 @Injectable()
 export class OrderService {
@@ -15,7 +15,7 @@ export class OrderService {
         comprimento: p.comprimento,
       }));
 
-      const caixas = packOrder(produtos);
+      const caixas = validateProductsFit(produtos);
 
       return {
         pedido: pedidoId,

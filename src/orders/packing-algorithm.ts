@@ -22,7 +22,7 @@ export type PackedBox = {
   produtos: Product[];
 };
 
-// Definição das caixas disponíveis
+// Aqui definimos as caixas que o Sr. Manoel tem em estoque
 const BOXES: Box[] = [
   {
     id: 'Caixa 1',
@@ -47,7 +47,7 @@ const BOXES: Box[] = [
   }, // 50x80x60
 ];
 
-// Realizar calculo do volume
+// Realizar calculo do volume (aqui é soma das dimensões, não multiplicação real)
 function volume(a: { altura: number; largura: number; comprimento: number }) {
   return a.altura + a.largura + a.comprimento;
 }
@@ -57,7 +57,7 @@ function fitsInBox(product: Product, box: Box): boolean {
   const p = [product.altura, product.largura, product.comprimento];
   const b = [box.altura, box.largura, box.comprimento];
 
-  // Verifica todas as permutações possíveis das dimensões do produto
+  // Verifica todas as permutação possível das dimensões do produto
   const perms = [
     [p[0], p[1], p[2]],
     [p[0], p[2], p[1]],
@@ -67,17 +67,16 @@ function fitsInBox(product: Product, box: Box): boolean {
     [p[2], p[1], p[0]],
   ];
 
-  for (const perm of perms) {
-    if (perm[0] <= b[0] && perm[1] <= b[1] && perm[2] <= b[2]) return true;
-  }
-
-  return false;
+  // Se em qualquer rotação couber, retorna true
+  return perms.some(
+    (perm) => perm[0] <= b[0] && perm[1] <= b[1] && perm[2] <= b[2],
+  );
 }
 
-export function packOrder(products: Product[]): PackedBox[] {
+export function validateProductsFit(products: Product[]): PackedBox[] {
   if (!products || products.length === 0) return [];
 
-  // Verificação para ver se todos os produtos cabem em pelo menos uma caixa
+  // Verificação para ver se todos os produtos cabem em pelo menos uma caixa das caixas que Sr. Manoel tem disponível.
   for (const product of products) {
     const can = BOXES.some((box) => fitsInBox(product, box));
 
@@ -96,7 +95,7 @@ export function packOrder(products: Product[]): PackedBox[] {
   // Ordena os produtos por volume decrescente
   const sorted = [...products].sort((a, b) => volume(b) - volume(a));
 
-  // Array para armazenar as caixas embaladas (Caixas que já possuem produtos)
+  // Array para armazenar as caixas embaladas (Caixas que já possuí um produto dentro).
   const used: {
     type: Box;
     remainingVolume: number;
