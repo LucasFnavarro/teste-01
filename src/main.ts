@@ -14,13 +14,18 @@ async function bootstrap() {
     .setTitle('API de Embalagem de Pedidos')
     .setDescription('API que decide quais caixas usar para pedidos')
     .setVersion('1.0')
+    .addBearerAuth()
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
 
   await app.listen(process.env.PORT || 3333);
-  console.log(`🚀 Application is running on: http://localhost:${process.env.PORT || 3333}`)
+  console.log(
+    `🚀 Application is running on: http://localhost:${
+      process.env.PORT || 3333
+    }`,
+  );
 }
 
 bootstrap();
