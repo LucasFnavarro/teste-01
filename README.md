@@ -71,7 +71,7 @@ Ela inclui **Swagger**, **JWT** para autenticação opcional e pode ser executad
   Content-Type: application/json
 
   {
-    "username": "lojinha-du-emanoel"
+    "username": "lojinha-du-manoel"
   }
   ```
 

@@ -11,5 +11,5 @@ ENV NODE_ENV=production
 COPY package*.json ./
 RUN npm install --production
 COPY --from=builder /app/dist ./dist
-EXPOSE 3000
+EXPOSE 3333
 CMD ["node", "dist/main.js"]
