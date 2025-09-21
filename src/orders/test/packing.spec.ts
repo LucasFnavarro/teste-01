@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import { packOrder } from '../packing-algorithm';
 
-describe('Packing Module', () => {
-  it('Should pack items correctly', async () => {
+describe('Módulo de embalagem', () => {
+  it('Deve embalar os itens corretamente', async () => {
     const produtos = [
       { id: 'p1', altura: 10, largura: 10, comprimento: 10 },
       { id: 'p2', altura: 10, largura: 10, comprimento: 10 },
