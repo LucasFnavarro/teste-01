@@ -141,7 +141,6 @@ export function validateProductsFit(products: Product[]): PackedBox[] {
     }
   }
 
-  // Formatar a saída
   const output: PackedBox[] = used.map((u) => ({
     caixa: u.type.name,
     caixaId: u.type.id,
