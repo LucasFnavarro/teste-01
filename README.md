@@ -72,6 +72,7 @@ Ela inclui **Swagger**, **JWT** para autenticação opcional e pode ser executad
 
   {
     "username": "lojinha-du-manoel"
+    "password": "123123"
   }
   ```
 
